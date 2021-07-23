@@ -7,13 +7,15 @@
 /// a **MapStream** to attach. Whenever an update from the stream arrives the
 /// **Widget** rerenders.
 ///
-/// **MapStreamBuilder**, similar to **StreamBuilder**, is a Widget that builds
+/// **StateStreamBuilder**, similar to **StreamBuilder**, is a Widget that builds
 /// itself based on the current **MapStream** state.
 
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:map_stream/map_stream.dart';
+
+export 'package:map_stream/map_stream.dart';
 
 /// An extension of **StatefulWidget**'s **State** class, allowing
 /// a **MapStream** to attach.
@@ -68,12 +70,12 @@ abstract class StreamingState<W extends StatefulWidget> extends State<W> {
 ///
 /// Optional [listenFor] restricts rerenders to only updates to specific keys.
 /// Helpful for reducing unecessary rerendering.
-class MapStreamBuilder extends StatefulWidget {
+class StateStreamBuilder extends StatefulWidget {
   final MapStream _mapStream;
   final List? _listenFor;
   final Widget Function(BuildContext context) _builder;
 
-  MapStreamBuilder({
+  StateStreamBuilder({
     required Widget Function(BuildContext context) builder,
     Key? key,
     List? listenFor,
@@ -84,14 +86,14 @@ class MapStreamBuilder extends StatefulWidget {
         super(key: key);
 
   @override
-  _MapStreamBuilderState createState() => _MapStreamBuilderState(
+  _StateStreamBuilderState createState() => _StateStreamBuilderState(
         _mapStream,
         _listenFor,
       );
 }
 
-class _MapStreamBuilderState extends StreamingState<MapStreamBuilder> {
-  _MapStreamBuilderState(
+class _StateStreamBuilderState extends StreamingState<StateStreamBuilder> {
+  _StateStreamBuilderState(
     MapStream mapStream, [
     List? listenFor,
   ]) : super(
