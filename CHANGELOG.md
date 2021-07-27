@@ -1,3 +1,7 @@
+## 1.0.0-alpha.5
+
+- Addition of didChangeMapStream.
+
 ## 1.0.0-alpha.3
 
 - Renames MapStreamBuilder to StateStreamBuilder.

@@ -50,13 +50,39 @@ abstract class StreamingState<W extends StatefulWidget> extends State<W> {
     final mapStreamsMap = _mapStreamsMap;
 
     mapStreamsMap.forEach((mapStream, keys) {
+      MapUpdate? prevUpdate;
+
       _stateStreamSubscriptions.add(
         mapStream.listen(
-          (_) => setState(() => {}),
+          (mapUpdate) {
+            if (mounted &&
+                didChangeMapStream(
+                  mapUpdate: mapUpdate,
+                  mapStream: mapStream,
+                )) {
+              setState(() => {});
+            }
+            prevUpdate = mapUpdate;
+          },
           keys,
         ),
       );
     });
+  }
+
+  /// Called when an attached **MapStream** update is received. Return bool
+  /// instructs the widget whether to update.
+  bool didChangeMapStream({
+    required MapUpdate mapUpdate,
+    required MapStream mapStream,
+  }) {
+    return true;
+  }
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
   }
 
   @override
